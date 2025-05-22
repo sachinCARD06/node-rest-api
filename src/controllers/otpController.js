@@ -1,3 +1,5 @@
+const { generateAuthenticateToken } = require("../utils/authTokenHeader");
+
 exports.generateOtp = async (req, res) => {
   try {
     const { reqMsgId, body } = req.body;
