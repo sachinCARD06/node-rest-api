@@ -34,7 +34,7 @@ const paymentModesList = {
 
 exports.getPaymentModes = async (req, res) => {
   try {
-    res.json(paymentModesList);
+    res.status(200).json(paymentModesList);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
