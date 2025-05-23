@@ -15,5 +15,9 @@ router.use("/bank-accounts", verifyAuthenticateToken, bankAccountsRoutes);
 router.use("/payment-modes", verifyAuthenticateToken, paymentModesRoutes);
 router.use("/fields", verifyAuthenticateToken, merchantOnboardingFieldRoutes);
 router.use("/state-codes", verifyAuthenticateToken, stateCodeRoutes);
-router.use("/merchant-onboarding", createMerchantOnboardingRoutes);
+router.use(
+  "/merchant-onboarding",
+  verifyAuthenticateToken,
+  createMerchantOnboardingRoutes
+);
 module.exports = router;
