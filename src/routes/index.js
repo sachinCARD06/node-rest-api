@@ -7,6 +7,8 @@ const paymentModesRoutes = require("./paymentModesRoutes");
 const merchantOnboardingFieldRoutes = require("./merchantOnboardingFieldRoutes");
 const stateCodeRoutes = require("./stateCodeRoutes");
 const createMerchantOnboardingRoutes = require("./createMerchantOnboardingRoutes");
+const pgIntegrationsRoutes = require("./pgIntegrationsRoutes");
+
 const router = express.Router();
 
 router.use("/otp", otpRoutes);
@@ -20,4 +22,6 @@ router.use(
   verifyAuthenticateToken,
   createMerchantOnboardingRoutes
 );
+router.use("/pg", pgIntegrationsRoutes);
+
 module.exports = router;

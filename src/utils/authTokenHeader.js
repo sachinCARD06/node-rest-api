@@ -1,8 +1,10 @@
-export function generateAuthenticateToken(mobile) {
-  return Math.random().toString(36).substring(2, 15) + mobile;
+function generateAuthenticateToken(mobile) {
+  return mobile?.length
+    ? Math.random().toString(36).substring(2, 15) + mobile
+    : "";
 }
 
-export function verifyAuthenticateToken(req, res, next) {
+function verifyAuthenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1]; // Extract token from "Bearer TOKEN"
 
@@ -12,3 +14,8 @@ export function verifyAuthenticateToken(req, res, next) {
     next();
   }
 }
+
+module.exports = {
+  generateAuthenticateToken,
+  verifyAuthenticateToken,
+};
