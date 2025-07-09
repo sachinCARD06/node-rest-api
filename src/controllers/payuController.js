@@ -1,31 +1,27 @@
-const CryptoJS = require("crypto-js");
 const crypto = require("crypto");
 const { PayData } = require("../../payu.config");
+const {
+  encryptCcAvenueData,
+  decryptCcAvenueData,
+} = require("../config/pgConfig");
 
 const secretKey = "TEST_CARD91_CSCI";
 
 let storeSessionId = "";
 
-const encryptData = (data, sessionVlaue) => {
-  return CryptoJS.AES.encrypt(JSON.stringify(data), sessionVlaue).toString();
-};
-
 exports.pgDataValidation = async (req, res) => {
-  const { pgData, sessionId } = req.body;
+  const { cscRequest, sessionId } = req.body;
 
-  const decryptedData = CryptoJS.AES.decrypt(pgData, secretKey).toString(
-    CryptoJS.enc.Utf8
-  );
+  const decryptedData = decryptCcAvenueData(cscRequest, secretKey);
   const reqData = decryptedData.length > 0 ? JSON.parse(decryptedData) : {};
 
   if (sessionId.length > 0) {
     storeSessionId = sessionId;
   }
 
-  console.log("reqData----->", reqData.payload);
-
   const txn_id = "PAYU_MONEY_" + Math.floor(Math.random() * 8888888);
   const { amount, productInfo, name, email, phone } = reqData.payload;
+  const { authToken, pgName, redirectUrl } = reqData.config;
 
   const hashString = [
     PayData.payu_key,
@@ -51,11 +47,11 @@ exports.pgDataValidation = async (req, res) => {
 
   const payUData = {
     key: PayData.payu_key,
-    txnid: txn_id,
+    transactionId: txn_id,
     amount: amount,
     currency: "INR",
     productInfo: productInfo,
-    name: name,
+    firstName: name,
     email: email,
     phone: phone,
     surl: `http://localhost:5000/api/v1/pg/verify-payment/${txn_id}`,
@@ -63,29 +59,17 @@ exports.pgDataValidation = async (req, res) => {
     hash: hash,
   };
 
-  // const payUData = {
-  //   key: PayData.payu_key,
-  //   txnid: txn_id,
-  //   amount: amount,
-  //   currency: "INR",
-  //   productInfo: productInfo,
-  //   name: name,
-  //   email: email,
-  //   phone: phone,
-  //   surl: `http://localhost:3000/payment/success/${txn_id}`,
-  //   furl: `http://localhost:3000/payment/failure/${txn_id}`,
-  //   hash: hash,
-  // };
-
   const data = {
-    config: reqData.config,
-    data: payUData,
+    ...payUData,
+    authKey: authToken,
+    pgName: pgName,
+    redirectUrl: redirectUrl,
   };
 
   try {
     res.status(200).json({
       message: "Data validated successfully",
-      data: encryptData(data, storeSessionId),
+      data: { pgData: encryptCcAvenueData(data, storeSessionId) },
     });
   } catch (error) {
     console.error(error);

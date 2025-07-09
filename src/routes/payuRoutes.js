@@ -6,11 +6,11 @@ const {
   verifyStatus,
   verifyPaymentStatus,
   getPaymentStatus,
-} = require("../controllers/pgIntegrations");
+} = require("../controllers/payuController");
 
 const router = express.Router();
 
-router.post("/data-validation", pgDataValidation);
+router.post("/payment-initiate", pgDataValidation);
 router.post("/verify-payment/:txnid", verifyPaymentStatus);
 router.get("/get-payment-status/:txnid", getPaymentStatus);
 

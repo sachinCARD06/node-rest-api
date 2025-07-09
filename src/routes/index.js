@@ -7,7 +7,8 @@ const paymentModesRoutes = require("./paymentModesRoutes");
 const merchantOnboardingFieldRoutes = require("./merchantOnboardingFieldRoutes");
 const stateCodeRoutes = require("./stateCodeRoutes");
 const createMerchantOnboardingRoutes = require("./createMerchantOnboardingRoutes");
-const pgIntegrationsRoutes = require("./pgIntegrationsRoutes");
+const payuRoutes = require("./payuRoutes");
+const ccavenueRoutes = require("./ccavenueRoutes");
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.use(
   verifyAuthenticateToken,
   createMerchantOnboardingRoutes
 );
-router.use("/pg", pgIntegrationsRoutes);
+router.use("/payu", payuRoutes);
+router.use("/ccavenue", ccavenueRoutes);
 
 module.exports = router;
