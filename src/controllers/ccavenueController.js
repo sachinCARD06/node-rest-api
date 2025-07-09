@@ -59,8 +59,8 @@ exports.ccavenueInitiate = async (req, res) => {
   const encrypteCCdData = encryptCcAvenue(payloadString, keyBase64, ivBase64);
 
   const finalResponse = {
-    access_code: ACCESS_CODE,
-    encRequest: encrypteCCdData,
+    accessCode: ACCESS_CODE,
+    encUrl: encrypteCCdData,
     authKey: authToken,
     pgName: pgName,
     redirectUrl: redirectUrl,

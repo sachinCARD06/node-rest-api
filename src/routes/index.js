@@ -9,6 +9,7 @@ const stateCodeRoutes = require("./stateCodeRoutes");
 const createMerchantOnboardingRoutes = require("./createMerchantOnboardingRoutes");
 const payuRoutes = require("./payuRoutes");
 const ccavenueRoutes = require("./ccavenueRoutes");
+const globalPaymentsRoutes = require("./globalPaymentsRoutes");
 
 const router = express.Router();
 
@@ -25,5 +26,6 @@ router.use(
 );
 router.use("/payu", payuRoutes);
 router.use("/ccavenue", ccavenueRoutes);
+router.use("/global-payments", globalPaymentsRoutes);
 
 module.exports = router;

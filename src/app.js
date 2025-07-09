@@ -49,11 +49,15 @@ app.use(
 
 // Debug middleware to log CSP headers
 app.use((req, res, next) => {
-  console.log("CSP Headers:", {
+  const cspHeaders = {
     "content-security-policy": res.getHeader("content-security-policy"),
     "x-content-type-options": res.getHeader("x-content-type-options"),
     "x-frame-options": res.getHeader("x-frame-options"),
-  });
+  };
+
+  if (Object.values(cspHeaders).some((header) => header)) {
+    console.log("CSP Headers:----->", cspHeaders);
+  }
   next();
 });
 

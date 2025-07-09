@@ -54,8 +54,8 @@ exports.pgDataValidation = async (req, res) => {
     firstName: name,
     email: email,
     phone: phone,
-    surl: `http://localhost:5000/api/v1/pg/verify-payment/${txn_id}`,
-    furl: `http://localhost:5000/api/v1/pg/verify-payment/${txn_id}`,
+    surl: `http://localhost:5000/api/v1/payu/verify-payment/${txn_id}`,
+    furl: `http://localhost:5000/api/v1/payu/verify-payment/${txn_id}`,
     hash: hash,
   };
 
