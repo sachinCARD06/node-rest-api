@@ -6,7 +6,7 @@ const {
 
 const router = express.Router();
 
-router.get("/payment-initiate", globalPaymentsInitiate);
-router.get("/verify/:status/:txnid", globalPaymentsVerify);
+router.post("/payment-initiate", globalPaymentsInitiate);
+router.post("/verify/:txnid", globalPaymentsVerify);
 
 module.exports = router;

@@ -104,18 +104,8 @@ exports.ccavenueVerify = async (req, res) => {
   try {
     if (parsedData.order_status === "Success") {
       res.redirect(`http://localhost:3000/payment/success/${orderNo}`);
-      //   return res.json({
-      //     success: true,
-      //     message: "Payment processed successfully",
-      //     data: { ...parsedData, orderNo },
-      //   });
     } else {
       res.redirect(`http://localhost:3000/payment/failure/${orderNo}`);
-      //   return res.json({
-      //     success: false,
-      //     message: "Payment failed",
-      //     data: { ...parsedData, orderNo },
-      //   });
     }
   } catch (error) {
     return res.status(500).json({
